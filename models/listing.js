@@ -9,14 +9,11 @@ const listingSchema = new Schema({
   description: String,
 
   image: {
-    url: {
-      type: String,
-      default: "https://images4.bovpg.net/r/back/uk/sale/4f0af16d68d487.jpg",
-    },
-    filename: {
-      type: String,
-      default: "listingimage",
-    },
+    type: String,
+    set: (v) =>
+      v === ""
+        ? "https://static.vecteezy.com/system/resources/thumbnails/046/884/985/small_2x/illustration-of-two-houses-in-a-suburban-neighborhood-with-a-checklist-in-front-of-the-main-house-the-scene-depicts-a-sunny-day-with-green-trees-and-clouds-in-the-sky-free-vector.jpg"
+        : v,
   },
 
   price: Number,

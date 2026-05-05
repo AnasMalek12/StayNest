@@ -1,0 +1,60 @@
+/* NavBar */
+/* .nav {
+  height: 5rem;
+} */
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container-fluid {
+  flex: 1;
+}
+
+.fa-s {
+  color: brown;
+  font-size: 2rem;
+}
+
+.index-p {
+  padding-left: 3rem;
+}
+
+/* Card */
+.card-img-top {
+  border-radius: 12px;
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card {
+  border: none !important;
+  overflow: hidden;
+}
+
+.card-body {
+  min-height: 120px;
+}
+
+.row {
+  justify-content: center;
+}
+
+.listing-link {
+  text-decoration: none;
+}
+
+.card-img-overlay {
+  opacity: 0;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+.show-btn {
+  padding-left: 15px;
+}
