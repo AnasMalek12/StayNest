@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container text-center mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="display-1 text-danger fw-bold">Oops!</h1>
+
+      <h2 class="mb-3">Something Went Wrong</h2>
+
+      <p class="fs-5 text-muted"><%= message %></p>
+
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/564/564619.png"
+        alt="Error Image"
+        class="img-fluid my-4"
+        style="max-width: 250px"
+      />
+
+      <div class="mt-4">
+        <a href="/listings" class="btn btn-outline-primary me-2">
+          Back to Listings
+        </a>
+
+        <a href="/" class="btn btn-dark"> Go Home </a>
+      </div>
+    </div>
+  </div>
+</div>
