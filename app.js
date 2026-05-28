@@ -6,9 +6,10 @@ const Listing = require("./models/listing");
 const path = require("path");
 const MONGO_URL = "mongodb://127.0.0.1:27017/StayNest";
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/warpAsync");
+const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/ExpressError");
-const { listingSchema } = require("./schema");
+const { listingSchema, reviewSchema } = require("./schema");
+const Review = require("./models/review");
 
 main()
   .then(() => {
@@ -35,6 +36,16 @@ app.get("/", (req, res) => {
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
+const validateReview = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errMsg);
@@ -104,31 +115,46 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
   }),
 );
 
-// app.get("/test", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My new Villa",
-//     description: "by the beach",
-//     price: 1200,
-//     location: "Nadiad,Gujarat",
-//     country: "India",
-//   });
-//   await sampleListing.save();
-//   console.log("Sample was saved");
-//   res.send("test successful");
-// });
+//Reviews
+//Post review Route
+app.post(
+  "/listings/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.review);
+    listing.reviews.push(newReview._id);
+    await newReview.save();
+    await listing.save();
+    res.redirect(`/listings/${listing._id}`);
+  }),
+);
 
+//delete review route
+app.delete(
+  "/listings/:id/reviews/:reviewsId",
+  wrapAsync(async (req, res) => {
+    let { id, reviewsId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewsId } });
+    await Review.findByIdAndDelete(reviewsId);
+    res.redirect(`/listings/${id}`);
+  }),
+);
+
+// 404 Handler
 app.use((req, res) => {
-  res.status(404).render("listings/PageNotFound.ejs");
+  res.status(404).render("PageNotFound.ejs");
 });
 
+// Global Error Handler
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "something went wrong" } = err;
-  res.status(statusCode).render("listings/error.ejs", { message });
+  res.status(statusCode).render("error.ejs", { message });
 });
 
 app.listen(8080, () => {
