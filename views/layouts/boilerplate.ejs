@@ -20,7 +20,9 @@
     />
   </head>
   <body>
-    <%- include("../includes/navbar.ejs") %>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <%- include("../includes/navbar.ejs") %> <%-
+    include("../includes/flash.ejs") %>
     <div class="container-fluid"><%- body %></div>
     <%- include("../includes/footer.ejs") %>
     <script
@@ -28,6 +30,10 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+
+    <script src="/js/createListingSwal.js"></script>
+    <script src="/js/deleteListingSwal.js"></script>
+    <script src="/js/editListingSwal.js"></script>
     <script src="/js/script.js"></script>
   </body>
 </html>
