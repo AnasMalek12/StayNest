@@ -1,0 +1,17 @@
+<% let msg = success[0] || error[0]; %>
+<% let icon = success[0] ? "success" : "error"; %>
+
+<% if(msg) { %>
+<script>
+  Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true
+  }).fire({
+    icon: "<%= icon %>",
+    title: "<%= msg %>"
+  });
+</script>
+<% } %>
