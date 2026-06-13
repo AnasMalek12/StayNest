@@ -13,19 +13,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings">allListings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings/new">AddListings</a>
-        </li>
-        </li>
-      </ul>
+      <div class="navbar-nav ms-auto"> 
+          <a class="nav-link active" aria-current="page" href="/">Home <i class="fa-regular fa-house"></i></a>  
+          <a class="nav-link" href="/listings">All <i class="fa-solid fa-border-all"></i></a>
+          <a class="nav-link" href="/listings/new">Add <i class="fa-solid fa-plus"></i></a>
+    </div>
+    <div class="navbar-nav ms-auto"> 
+      <% if(!currUser){ %>
+        <a class="nav-link active" aria-current="page" href="/Signup">SignUp <i class="fa-solid fa-user-plus"></i></a>  
+          <a class="nav-link" href="/Login">LogIn <i class="fa-solid fa-user-lock"></i></a>
+      <% } %>
+      <% if(currUser) { %>
+          <a class="nav-link" id="logout-btn" href="/Logout">LogOut <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+     <%  } %>
     </div>
   </div>
 </nav>
-
