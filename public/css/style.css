@@ -22,7 +22,7 @@ body {
 }
 
 /* Card */
-.card-img-top {
+.card-img-show {
   border-radius: 12px;
   height: 20rem;
   width: 100%;
@@ -57,6 +57,17 @@ body {
 
 .show-btn {
   padding-left: 15px;
+}
+
+.listing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.card-img-top {
+  height: 16rem;
+  object-fit: cover;
 }
 
 /* reviews */
