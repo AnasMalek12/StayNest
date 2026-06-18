@@ -1,25 +1,47 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-s"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+  <div class="container-fluid navbar-wrapper">
+    <a class="navbar-brand" href="/listings">
+      <img src="https://res.cloudinary.com/dmvzrbyq1/image/upload/v1781627775/logo_mdbtom.svg" alt="Website Icon"
+        width="142" height="42" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link active" aria-current="page" href="/">Home <i class="fa-regular fa-house"></i></a>
-        <a class="nav-link" href="/listings">All <i class="fa-solid fa-border-all"></i></a>
-        <a class="nav-link" href="/listings/new">Add <i class="fa-solid fa-plus"></i></a>
+      <div class="navbar-nav gap-3">
+        <a class="nav-link custom-link fw-semibold" href="/listings/new">
+          Become a host
+        </a>
       </div>
-      <div class="navbar-nav ms-auto">
+      <div class="mx-auto">
+        <form action="/listings" method="GET" class="search-pill">
+          <input type="text" name="search" placeholder="Where to?" />
+
+          <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="navbar-nav auth-links">
         <% if(!currUser){ %>
-          <a class="nav-link active" aria-current="page" href="/Signup">SignUp <i class="fa-solid fa-user-plus"></i></a>
-          <a class="nav-link" href="/Login">LogIn <i class="fa-solid fa-user-lock"></i></a>
+          <a class="btn" href="/Signup">
+            <i class="fa-solid fa-user-plus"></i><br>SignUp
+          </a>
+
+          <a class="btn " href="/Login">
+            <i class="fa-solid fa-user-lock"></i><br>LogIn
+          </a>
           <% } %>
-            <% if(currUser) { %>
-              <a class="nav-link" id="logout-btn" href="/Logout">LogOut <i
-                  class="fa-solid fa-arrow-right-from-bracket"></i></a>
+
+            <% if(currUser){ %>
+              <a class="btn" id="logout-btn" href="/Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i><br>LogOut
+              </a>
               <% } %>
       </div>
     </div>
+  </div>
 </nav>

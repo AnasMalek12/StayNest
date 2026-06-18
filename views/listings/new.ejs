@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-8">
       <h3 class="mt-3">Create A New Listing :</h3>
-      <form id="listing-form-create" method="POST" action="/listings" class="needs-validation" novalidate>
+      <form id="listing-form-create" method="POST" action="/listings" enctype="multipart/form-data"
+        class="needs-validation" novalidate>
         <div class="mt-3">
           <label for="listing[title]" class="form-label">Title</label>
           <input name="listing[title]" placeholder="Enter Title" type="text" class="form-control" required />
@@ -19,9 +20,8 @@
         </div>
 
         <div class="mt-3">
-          <label for="listing[image]">Image</label>
-          <input name="listing[image]" placeholder="Enter Image URL/Link" type="text" class="form-control" required />
-
+          <label for="listing[image]">Upload Image</label>
+          <input name="listing[image]" type="file" class="form-control" required />
           <div class="valid-feedback">Looks good!</div>
           <div class="invalid-feedback">Please enter a valid URL</div>
         </div>
