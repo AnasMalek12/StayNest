@@ -79,46 +79,57 @@
                 <% } %>
             </div>
             <hr class="my-5" />
-            <h3 class="mb-4">🙋🏻‍♂️ Guest Reviews :</h3>
-            <div class="row">
-              <% for(let review of listing.reviews){ %>
-                <div class="col-md-6 mb-4">
-                  <div class="card shadow-sm border-0 h-100 review-card">
-                    <div class="card-body">
-                      <div class="d-flex  align-items-center mb-2">
-                        <div class="review-user">
-                          <div class="avatar">
-                            <%= review.author.username.charAt(0).toUpperCase() %>
+
+            <% if(listing.reviews.length> 0) { %>
+              <div class="row">
+                <h3 class="mb-4">🙋🏻‍♂️ Guest Reviews :</h3>
+                <% for(let review of listing.reviews){ %>
+                  <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 h-100 review-card">
+                      <div class="card-body">
+                        <div class="d-flex  align-items-center mb-2">
+                          <div class="review-user">
+                            <div class="avatar">
+                              <%= review.author.username.charAt(0).toUpperCase() %>
+                            </div>
                           </div>
+                          <h5 class="card-title ms-2 mt-2 text-dark">@<%= review.author.username.toUpperCase() %>
+                          </h5>
+                          <span class="badge bg-secondary text-light ms-auto">
+                            ⭐ <%= review.rating %>/5
+                          </span>
                         </div>
-                        <h5 class="card-title ms-2 mt-2 text-dark">@<%= review.author.username.toUpperCase() %>
-                        </h5>
-                        <span class="badge bg-secondary text-light ms-auto">
-                          ⭐ <%= review.rating %>/5
-                        </span>
-                      </div>
-                      <p class="card-text">
-                        <%= review.comment %>
-                      </p>
-                      <div class="mrg">
-                        <small class="text-muted">
-                          Posted recently
-                        </small>
-                        <% if(currUser && review.author._id.equals(currUser._id)){ %>
-                          <form class="btn-dlt"
-                            action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-                            method="POST">
-                            <button class="btn btn-sm btn-outline-danger rounded-pill">
-                              ⛌
-                            </button>
-                          </form>
-                          <% } %>
+                        <p class="card-text">
+                          <%= review.comment %>
+                        </p>
+                        <div class="mrg">
+                          <small class="text-muted">
+                            Posted recently
+                          </small>
+                          <% if(currUser && review.author._id.equals(currUser._id)){ %>
+                            <form class="btn-dlt"
+                              action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                              method="POST">
+                              <button class="btn btn-sm btn-outline-danger rounded-pill">
+                                ⛌
+                              </button>
+                            </form>
+                            <% } %>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <% } %>
+              </div>
+              <%}%>
+                <div class="col-8 mt-4 mb-3">
+                  <h3 class="mb-4"><span>📍</span> Where you’ll be :</h3>
+                  <div id="map" data-geometry="<%= JSON.stringify(listing.geometry || null) %>">
+                    <script
+                      src="https://maps.googleapis.com/maps/api/js?key=<%= mapToken %>&libraries=maps,marker"></script>
+                    <script src="/js/map.js"></script>
+                  </div>
                 </div>
-                <% } %>
-            </div>
       </div>
     </div>
   </div>

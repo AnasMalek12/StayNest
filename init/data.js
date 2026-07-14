@@ -10,6 +10,10 @@ const sampleListings = [
     price: 1500,
     location: "Nadiad",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [72.8634, 22.6916],
+    },
   },
   {
     title: "Modern Apartment in Anand",
@@ -22,6 +26,10 @@ const sampleListings = [
     price: 1800,
     location: "Anand",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [72.9559, 22.5645],
+    },
   },
   {
     title: "Budget Stay near Dakor Temple",
@@ -34,6 +42,10 @@ const sampleListings = [
     price: 800,
     location: "Dakor",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [73.1498, 22.7527],
+    },
   },
   {
     title: "Luxury Villa in Vadodara",
@@ -46,6 +58,10 @@ const sampleListings = [
     price: 4000,
     location: "Vadodara",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [73.1812, 22.3072],
+    },
   },
   {
     title: "Farmhouse Stay near Nadiad",
@@ -58,6 +74,10 @@ const sampleListings = [
     price: 2000,
     location: "Nadiad",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [72.8634, 22.6916],
+    },
   },
   {
     title: "Student-Friendly PG in Vallabh Vidyanagar",
@@ -70,6 +90,10 @@ const sampleListings = [
     price: 600,
     location: "Vallabh Vidyanagar",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [72.9236, 22.5536],
+    },
   },
   {
     title: "Heritage Style Home in Ahmedabad",
@@ -82,6 +106,10 @@ const sampleListings = [
     price: 2500,
     location: "Ahmedabad",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [72.5714, 23.0225],
+    },
   },
   {
     title: "Weekend Getaway near Saputara",
@@ -94,6 +122,10 @@ const sampleListings = [
     price: 3000,
     location: "Saputara",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [73.75, 20.5783],
+    },
   },
   {
     title: "Budget Room in Surat",
@@ -106,6 +138,10 @@ const sampleListings = [
     price: 1200,
     location: "Surat",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [72.8311, 21.1702],
+    },
   },
   {
     title: "Beach Stay in Diu",
@@ -117,6 +153,10 @@ const sampleListings = [
     price: 3500,
     location: "Diu",
     country: "India",
+    geometry: {
+      type: "Point",
+      coordinates: [70.9874, 20.7144],
+    },
   },
 ];
 
