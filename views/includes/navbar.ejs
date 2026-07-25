@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
   <div class="container-fluid navbar-wrapper">
-    <a class="navbar-brand" href="/listings">
+    <a class="navbar-brand" href="/">
       <img src="https://res.cloudinary.com/dmvzrbyq1/image/upload/v1781627775/logo_mdbtom.svg" alt="Website Icon"
         width="142" height="42" />
     </a>
@@ -17,7 +17,7 @@
       </div>
       <div class="mx-auto">
         <form action="/listings" method="GET" class="search-pill">
-          <input type="text" name="search" placeholder="Where to?" />
+          <input type="text" name="search" id="searchInput" placeholder="Where to?" autocomplete="off" />
 
           <button type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -27,17 +27,17 @@
 
       <div class="navbar-nav auth-links">
         <% if(!currUser){ %>
-          <a class="btn" href="/Signup">
+          <a class="btn auth-btn" href="/Signup">
             <i class="fa-solid fa-user-plus"></i><br>SignUp
           </a>
 
-          <a class="btn " href="/Login">
+          <a class="btn auth-btn" href="/Login">
             <i class="fa-solid fa-user-lock"></i><br>LogIn
           </a>
           <% } %>
 
             <% if(currUser){ %>
-              <a class="btn" id="logout-btn" href="/Logout">
+              <a class="btn auth-btn" id="logout-btn" href="/Logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i><br>LogOut
               </a>
               <% } %>

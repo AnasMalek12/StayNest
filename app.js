@@ -1,5 +1,7 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
+  const dns = require("dns");
+  dns.setServers(["1.1.1.1", "8.8.8.8"]);
 }
 
 const express = require("express");
@@ -7,28 +9,35 @@ const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const path = require("path");
-const MONGO_URL = "mongodb://127.0.0.1:27017/StayNest";
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
-const listingsRouter = require("./routes/listing.js");
-const reviewsRouter = require("./routes/review.js");
 const session = require("express-session");
+const { MongoStore } = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const homeRouter = require("./routes/home");
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const PORT = process.env.PORT || 8080;
+const atlasUrl = process.env.MONGO_URL;
 
 main()
   .then(() => {
     console.log("DB Connected");
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(atlasUrl);
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
 }
 
 app.set("view engine", "ejs");
@@ -38,18 +47,29 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-app.get("/", (req, res) => {
-  res.send("hi i am listning");
+const store = MongoStore.create({
+  mongoUrl: atlasUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", (err) => {
+  console.error("Mongo Session Store Error:", err);
 });
 
 const sessionOptions = {
-  secret: "hellothere",
+  store,
+  secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
   },
 };
 
@@ -71,6 +91,7 @@ app.use((req, res, next) => {
 });
 
 //routers
+app.use("/", homeRouter);
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
@@ -82,10 +103,14 @@ app.use((req, res, next) => {
 
 // Global Error Handler
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "something went wrong" } = err;
+  console.error(err);
+
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Something went wrong";
+
   res.status(statusCode).render("error.ejs", { message });
 });
 
-app.listen(8080, () => {
-  console.log("server is listning to port 8080");
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
