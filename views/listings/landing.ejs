@@ -1,0 +1,113 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+    <link rel="stylesheet" href="/css/landing.css">
+
+    <!-- Hero Section -->
+    <section class="hero-container">
+        <div class="hero-bento">
+            <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                alt="Beautiful Home" class="hero-bg-img" id="heroImage">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+                <h1 class="hero-title">Find your next perfect getaway</h1>
+                <p class="hero-subtitle">Discover extraordinary homes with StayNest.</p>
+                <a href="/listings" class="hero-btn">
+                    Explore All Listings <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Glass Search Bar -->
+    <section class="Search-container mt-2 mb-2">
+        <div class="search-wrapper">
+            <form action="/listings" method="GET" class="premium-search-bar">
+                <div class="search-input-group">
+                    <i class="fa-solid fa-location-dot search-icon"></i>
+                    <input type="text" name="location" class="search-input" placeholder="Where are you going?">
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- Features Section -->
+    <section class="features-container">
+        <div class="features-grid scroll-reveal">
+            <div class="feature-card">
+                <div class="feature-icon-wrap"><i class="fa-solid fa-gem"></i></div>
+                <h4>Curated Spaces</h4>
+                <p class="text-secondary mt-2">Every home on StayNest is verified for quality and comfort.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap"><i class="fa-solid fa-map-location-dot"></i></div>
+                <h4>Prime Locations</h4>
+                <p class="text-secondary mt-2">Stay in the heart of the city or escape to hidden natural retreats.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap"><i class="fa-solid fa-shield-heart"></i></div>
+                <h4>Secure Booking</h4>
+                <p class="text-secondary mt-2">Industry-leading security and 24/7 support for peace of mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Listings Section -->
+    <section class="listings-container">
+        <div class="section-header scroll-reveal">
+            <h2 class="section-title">Trending Now</h2>
+        </div>
+
+        <div class="premium-grid" id="listingGrid">
+            <% for(let listing of allListings) { %>
+                <a href="/listings/<%= listing._id %>" class="listing-card-wrapper">
+                    <div class="premium-card">
+                        <div class="card-img-container">
+                            <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' %>"
+                                class="card-img" alt="listing-image">
+                            <button class="wishlist-btn" onclick="event.preventDefault(); toggleWishlist(this);">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <%= listing.title %>
+                            </h3>
+                            <span class="card-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+
+                        <p class="card-details">
+                            <%= listing.location ? listing.location : 'Beautiful destination' %>
+                                <%= listing.country ? ', ' + listing.country : '' %>
+                        </p>
+
+                        <div class="card-price-wrap">
+                            <span class="card-price">₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %>
+                            </span>
+                            <span class="card-price-suffix">/ night</span>
+                        </div>
+                    </div>
+                </a>
+                <% } %>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-wrapper scroll-reveal">
+        <div class="cta-banner">
+            <div class="cta-bg-pattern"></div>
+            <div class="cta-content">
+                <h2 class="cta-title">Open your doors to the world</h2>
+                <p class="fs-5 text-light opacity-75">Turn your extra space into extra income. Hosting on StayNest is
+                    easy, secure, and rewarding.</p>
+                <a href="/listings/new" class="cta-btn-primary">Become a Host</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/landing.js"></script>

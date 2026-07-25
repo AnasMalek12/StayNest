@@ -9,6 +9,24 @@ module.exports.index = async (req, res) => {
   res.render("listings/index.ejs", { allListings });
 };
 
+//searchListings
+module.exports.searchListings = async (req, res) => {
+  const search = req.query.search?.trim();
+
+  let filter = {};
+
+  if (search) {
+    filter.title = {
+      $regex: search,
+      $options: "i",
+    };
+  }
+
+  const listings = await Listing.find(filter);
+
+  res.json(listings);
+};
+
 //new
 module.exports.new = (req, res) => {
   return res.render("listings/new.ejs");

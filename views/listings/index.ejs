@@ -3,7 +3,7 @@
     <div class="index-bg"></div>
     <h3 class=" index-p pt-3 fs-4  ">Popular homes <i class="fa fa-terminal" aria-hidden="true"></i></h3>
     <div class="container-fluid mt-4 px-5">
-      <div class="listing-grid">
+      <div class="listing-grid" id="listingGrid">
         <% for(let listing of allListings) { %>
           <div class="col">
             <a href="/listings/<%= listing._id %>" class="listing-link">
