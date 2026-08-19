@@ -55,25 +55,71 @@ async function renderListings(listings) {
       listingGrid.classList.remove("empty-grid");
 
       listings.forEach((listing) => {
+        const imageUrl =
+          listing.image && listing.image.url
+            ? listing.image.url
+            : "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80";
+
         listingGrid.innerHTML += `
-          <div class="col">
-            <a href="/listings/${listing._id}" class="listing-link">
-              <div class="card h-100">
-                <img src="${listing.image.url}" class="card-img-top">
+      <a href="/listings/${listing._id}" class="listing-card-wrapper">
 
-                <div class="card-img-overlay"></div>
+        <div class="premium-card">
 
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">${listing.title}</h5>
+          <div class="card-img-container">
 
-                  <p class="card-price mt-auto">
-                    ₹${Number(listing.price).toLocaleString("en-IN")} for 2 Nights
-                  </p>
-                </div>
-              </div>
-            </a>
+            <img
+              src="${imageUrl}"
+              alt="${listing.title || "Listing"}"
+              class="card-img"
+            >
+
+            <button
+              class="wishlist-btn"
+              onclick="event.preventDefault();"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+
           </div>
-        `;
+
+          <div class="card-header">
+
+            <h3 class="card-title">
+              ${listing.title || "Beautiful Home"}
+            </h3>
+
+            <div class="card-rating">
+              <i class="fa-solid fa-star"></i>
+              4.9
+            </div>
+
+          </div>
+
+          <p class="card-details">
+            ${listing.location || "Beautiful Destination"}
+            ${listing.country ? `, ${listing.country}` : ""}
+          </p>
+
+          <div class="card-price-wrap">
+
+            <span class="card-price">
+              ₹${
+                listing.price
+                  ? Number(listing.price).toLocaleString("en-IN")
+                  : "0"
+              }
+            </span>
+
+            <span class="card-price-suffix">
+              / night 
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+    `;
       });
     }
 
