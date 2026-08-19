@@ -1,27 +1,80 @@
 <% layout("layouts/boilerplate.ejs") %>
+
   <div class="index-page">
     <div class="index-bg"></div>
-    <h3 class=" index-p pt-3 fs-4  ">Popular homes <i class="fa fa-terminal" aria-hidden="true"></i></h3>
-    <div class="container-fluid mt-4 px-5">
-      <div class="listing-grid" id="listingGrid">
-        <% for(let listing of allListings) { %>
-          <div class="col">
-            <a href="/listings/<%= listing._id %>" class="listing-link">
-              <div class="card h-100">
-                <img src="<%= listing.image.url %>" class="card-img-top" alt="listingImage">
-                <div class="card-img-overlay"></div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">
-                    <%= listing.title %>
-                  </h5>
-                  <p class="card-price mt-auto">
-                    ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %> for 2 Nights
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <% } %>
+
+    <section class="listings-container">
+
+      <div class="section-header">
+        <h2 class="section-title mx-3">
+          Popular Homes
+          <i class="ri-fire-line"></i>
+        </h2>
       </div>
-    </div>
+
+      <div class="premium-grid  " id="listingGrid">
+
+        <% for(let listing of allListings) { %>
+
+          <a href="/listings/<%= listing._id %>" class="listing-card-wrapper">
+
+            <div class="premium-card">
+
+              <div class="card-img-container">
+
+                <img
+                  src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80' %>"
+                  alt="<%= listing.title %>" class="card-img">
+
+                <button class="wishlist-btn" onclick="event.preventDefault();">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+
+              </div>
+
+              <div class="card-header">
+
+                <h3 class="card-title">
+                  <%= listing.title %>
+                </h3>
+
+                <div class="card-rating">
+                  <i class="fa-solid fa-star"></i>
+                  4.9
+                </div>
+
+              </div>
+
+              <p class="card-details">
+
+                <%= listing.location || "Beautiful Destination" %>
+
+                  <% if(listing.country){ %>
+                    , <%= listing.country %>
+                      <% } %>
+
+              </p>
+
+              <div class="card-price-wrap">
+
+                <span class="card-price">
+                  ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %>
+                </span>
+
+                <span class="card-price-suffix">
+                  / night
+                </span>
+
+              </div>
+
+            </div>
+
+          </a>
+
+          <% } %>
+
+      </div>
+
+    </section>
+
   </div>
